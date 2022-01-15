@@ -1,0 +1,21 @@
+{
+    "title" : "how to use this api",
+    "description" : "this is a website that scrap azylyrics's song to get a certain lyrics",
+    "content-type" : "for educational only",
+    "providedRoutes" : [
+        {
+            "type" : "search songs",
+            "route" : "/search/song_title",
+            "desc" : "search routes to get all credential data on data you've searched on.This will return a list based on the song title",
+            "validSongTitle" : "only seperated by space ( )",
+            "example" : "/search/what is love"
+        },
+        {
+            "type" : "get lyrics",
+            "route" : "/lyrics/song_title",
+            "desc" : "after you get all the credential data of the song youve searched,use this route to get its lyrics",
+            "validSongTitle" : "/artist/songTitle.html",
+            "example" : "/search/twice/whatislove.html"
+        }
+    ]
+}
