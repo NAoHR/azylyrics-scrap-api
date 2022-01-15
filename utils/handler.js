@@ -39,12 +39,14 @@ const lyricsHandler = (data) =>{
     data = $("table.table-condensed > tbody").children()
     let list = []
     data.each((i,el)=>{
-        let seperateIt = $(el).children("td").children("a").text().split(" - ");
-        list.push({
-            "title" : seperateIt[0].split("\"").join(" "),
-            "artist" : seperateIt[1],
-            "link" : $(el).children("td").children("a").attr("href")
-        })
+        if($(el).children("td").attr("class") != undefined){
+            let seperateIt = $(el).children("td").children("a").text().split(" - ");
+            list.push({
+                "title" : seperateIt[0].split("\"").join(" "),
+                "artist" : seperateIt[1],
+                "link" : $(el).children("td").children("a").attr("href")
+            })
+        }
     })
     return {
         "Err" : false,
