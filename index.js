@@ -1,6 +1,6 @@
 const express = require("express");
 const jsonData = require("./utils/jsonFile/example.json");
-const {requestsData,validateRequests,parseIt,songHandler} = require("./utils/handler.js");
+const {requestsData,validateRequests,parseIt,songHandler,lyricsHandler} = require("./utils/handler.js");
 
 
 const app = express();
@@ -13,16 +13,26 @@ app.get("/",(req,res)=>{
 app.get("/lyrics",(req,res)=>{
     res.send(jsonData.providedRoutes[1])
 })
-app.get("/lyrics/:songTitle",(req,res)=>{
-    console.log(req.param)
-    res.send(req.params)
+app.get("/lyrics/:songLink",async (req,res)=>{
+    const newTitle = parseIt(req.params["songLink"],"lyrics")
+    const data = await requestsData(`https://www.azlyrics.com/lyrics/${newTitle}`);
+    if(!data){
+        res.send({
+            "Err" : true,
+            "status" : "song's lyrics not found",
+            "message" : "please type it corrrectly (either the artist or the song)"
+        });
+    }else{
+        const lyricsData = lyricsHandler(data);
+        res.send(lyricsData);
+    }
 })
 
 app.get("/search",(req,res)=>{
     res.send(jsonData.providedRoutes[0])
 })
 app.get("/search/:title",async (req,res)=>{
-    const newTitle = parseIt(req.params['title']);
+    const newTitle = parseIt(req.params['title'],"songs");
     const data = await requestsData(`https://search.azlyrics.com/search.php?q=${newTitle}&w=songs&p=1`)
     const validated = validateRequests(data,"title");
     if(!validated){
