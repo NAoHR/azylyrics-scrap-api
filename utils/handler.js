@@ -1,7 +1,10 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-const parseIt = (data) => {
+const parseIt = (data,type) => {
+    if(type == "lyrics"){
+        return data.split("_").join("/")
+    }
     return data.split(" ").join("+")
 }
 const requestsData = async (link) =>{
@@ -13,7 +16,6 @@ const requestsData = async (link) =>{
         });
         return await data.data;
     }catch(Err){
-        console.log(Err)
         return false;
     }
 }
@@ -54,9 +56,23 @@ const songHandler = (data) =>{
     }
     
 }
+
+const lyricsHandler = (data) => {
+    const $ = cheerio.load(data);
+    data = $("div.col-xs-12.col-lg-8.text-center").children("div:not([class])")
+    let lyrics =  data.text().split("\n")
+    const tobeReturned = {
+        "Err" : false,
+        "status" : "perfectly fetched",
+        "message" : "no-log",
+        "lyrics" : lyrics.length == 0 ? false : lyrics
+    }
+    return tobeReturned
+}
 module.exports = {
     parseIt,
     requestsData,
     validateRequests,
-    songHandler
+    songHandler,
+    lyricsHandler
 }
