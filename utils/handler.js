@@ -34,7 +34,7 @@ const validateRequests = (status,type)=>{
 }
 
 
-const lyricsHandler = (data) =>{
+const songHandler = (data) =>{
     const $ = cheerio.load(data);
     data = $("table.table-condensed > tbody").children()
     let list = []
@@ -58,5 +58,5 @@ module.exports = {
     parseIt,
     requestsData,
     validateRequests,
-    lyricsHandler
+    songHandler
 }

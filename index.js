@@ -1,6 +1,6 @@
 const express = require("express");
 const jsonData = require("./utils/jsonFile/example.json");
-const {requestsData,validateRequests,parseIt,lyricsHandler} = require("./utils/handler.js");
+const {requestsData,validateRequests,parseIt,songHandler} = require("./utils/handler.js");
 
 
 const app = express();
@@ -33,7 +33,7 @@ app.get("/search/:title",async (req,res)=>{
         })
     }
     else{
-        const newData = lyricsHandler(data)
+        const newData = songHandler(data)
         res.send(newData);
     }
 })
