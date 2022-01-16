@@ -12,10 +12,10 @@
         },
         {
             "type" : "get lyrics",
-            "route" : "/lyrics/song_title",
+            "route" : "/lyrics/artist_song.html",
             "desc" : "after you get all the credential data of the song youve searched,use this route to get its lyrics",
             "validSongTitle" : "/artist/songTitle.html",
-            "example" : "/search/twice/whatislove.html"
+            "example" : "/search/twice_whatislove.html"
         }
     ]
 }
