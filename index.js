@@ -43,7 +43,7 @@ app.get("/search/:title",async (req,res)=>{
         })
     }
     else{
-        const newData = songHandler(data)
+        const newData = songHandler(data,`${req.protocol}://${req.get("host")}`)
         res.send(newData);
     }
 })

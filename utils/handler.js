@@ -12,7 +12,7 @@ const requestsData = async (link) =>{
         const data = await axios({
             "url" : link,
             "method" : "GET",
-            "timeout" : 2000 // you can adjust the amount of this time in ms
+            "timeout" : 5000 // you can adjust the amount of this time in ms
         });
         return await data.data;
     }catch(Err){
@@ -32,7 +32,7 @@ const validateRequests = (status,type)=>{
 }
 
 
-const songHandler = (data) =>{
+const songHandler = (data,host) =>{
     const $ = cheerio.load(data);
     data = $("table.table-condensed > tbody").children()
     let list = []
@@ -42,7 +42,7 @@ const songHandler = (data) =>{
             list.push({
                 "title" : seperateIt[0].split("\"").join(" "),
                 "artist" : seperateIt[1],
-                "link" : $(el).children("td").children("a").attr("href").split("/lyrics/")[1].split("/").join("_")
+                "link" : `${host}/lyrics/${$(el).children("td").children("a").attr("href").split("/lyrics/")[1].split("/").join("_")}`
             })
         }
     })
