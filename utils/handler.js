@@ -12,7 +12,7 @@ const requestsData = async (link) =>{
         const data = await axios({
             "url" : link,
             "method" : "GET",
-            "timeout" : 5000 // you can adjust the amount of this time in ms
+            "timeout" : 2000 // you can adjust the amount of this time in ms
         });
         return await data.data;
     }catch(Err){
@@ -55,13 +55,18 @@ const songHandler = (data,host) =>{
 
 const lyricsHandler = (data) => {
     const $ = cheerio.load(data);
-    data = $("div.col-xs-12.col-lg-8.text-center").children("div:not([class])")
-    let lyrics =  data.text().split("\n")
+    dataLyrics = $("div.col-xs-12.col-lg-8.text-center").children("div:not([class])");
+    dataWriter = $("div.col-xs-12.col-lg-8.text-center").children("div.smt").children("small");
+
+    let lyrics =  dataLyrics.text().split("\n")
     const tobeReturned = {
         "Err" : false,
         "status" : "perfectly fetched",
         "message" : "no-log",
-        "lyrics" : lyrics.length == 0 ? false : lyrics
+        "content" : {
+            "writer" : dataWriter.text().split("Writer(s):")[1],
+            "lyrics" : lyrics.length == 0 ? false : lyrics
+        }
     }
     return tobeReturned
 }
