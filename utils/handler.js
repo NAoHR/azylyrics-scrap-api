@@ -42,7 +42,7 @@ const songHandler = (data) =>{
             list.push({
                 "title" : seperateIt[0].split("\"").join(" "),
                 "artist" : seperateIt[1],
-                "link" : $(el).children("td").children("a").attr("href")
+                "link" : $(el).children("td").children("a").attr("href").split("/lyrics/")[1].split("/").join("_")
             })
         }
     })
