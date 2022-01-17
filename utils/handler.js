@@ -55,9 +55,14 @@ const songHandler = (data,host) =>{
 
 const lyricsHandler = (data) => {
     const $ = cheerio.load(data);
-    dataLyrics = $("div.col-xs-12.col-lg-8.text-center").children("div:not([class])");
-    dataWriter = $("div.col-xs-12.col-lg-8.text-center").children("div.smt").children("small");
-
+    const base = $("div.col-xs-12.col-lg-8.text-center");
+    let dataLyrics = base.children("div:not([class])");
+    let dataWriter = base.children("div.smt").children("small");
+    let panel = base.children("div.panel.album-panel.noprint");
+    let dataPanel = []
+    panel.each((i,el)=>{
+        dataPanel.push($(el).text())
+    })
     let lyrics =  dataLyrics.text().split("\n")
     const tobeReturned = {
         "Err" : false,
@@ -65,7 +70,8 @@ const lyricsHandler = (data) => {
         "message" : "no-log",
         "content" : {
             "writer" : dataWriter.text().split("Writer(s):")[1],
-            "lyrics" : lyrics.length == 0 ? false : lyrics
+            "lyrics" : lyrics.length == 0 ? false : lyrics,
+            "additional" : dataPanel.length == 0 ? "no data to be displayed" : dataPanel
         }
     }
     return tobeReturned
