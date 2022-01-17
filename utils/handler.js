@@ -12,7 +12,7 @@ const requestsData = async (link) =>{
         const data = await axios({
             "url" : link,
             "method" : "GET",
-            "timeout" : 2000
+            "timeout" : 2000 // you can adjust the amount of this time in ms
         });
         return await data.data;
     }catch(Err){
@@ -21,11 +21,7 @@ const requestsData = async (link) =>{
 }
 const validateRequests = (status,type)=>{
     if(!status){
-        return {
-            "Err" : true,
-            "status" : "Not found",
-            "desc" : `make sure you type ${type} correctly`
-        }
+        return false
     }else{
         const $ = cheerio.load(status);
         if($("div.alert-warning").text() == ""){
