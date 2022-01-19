@@ -8,7 +8,14 @@
             "route" : "/search/song_title",
             "desc" : "search routes to get all credential data on data you've searched on.This will return a list based on the song title",
             "validSongTitle" : "only seperated by space ( )",
-            "example" : "/search/what is love"
+            "example" : "/search/what is love",
+            "query" : {
+                "q" : {
+                    "all" : "to show requested song based on its lyrics and title",
+                    "l" : "to show requested song based on its lyrics",
+                    "t" : "to show requested song based on its title"
+                }
+            }
         },
         {
             "type" : "get lyrics",
