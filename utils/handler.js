@@ -84,7 +84,7 @@ const mainRequest = async (generatedLink,parsedUserInput,host) =>{
             }else{
                 return {
                     "status" : false,
-                    "ErrorLog" : `make sure you type the ${item['nameType']} correctly`,
+                    "ErrorLog" : `phrase didn't match on any lyrics`,
                     "name" : item["name"],
                     "willBeProccededData" : [],
                 }
