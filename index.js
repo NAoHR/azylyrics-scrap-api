@@ -14,10 +14,9 @@ app.get("/lyrics",(req,res)=>{
     res.json(jsonData.providedRoutes[1])
 })
 app.get("/lyrics/:songLink",async (req,res)=>{
-    const urlNew = url.parse(req.url,true);
     const newTitle = parseIt(req.params["songLink"],"lyrics")
     const data = await requestsData(`https://www.azlyrics.com/lyrics/${newTitle}`);
-    if(!data){
+    if(data == -1){
         res.json({
             "Err" : true,
             "status" : "song's lyrics not found",
