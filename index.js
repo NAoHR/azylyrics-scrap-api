@@ -1,10 +1,13 @@
 const express = require("express");
 const jsonData = require("./utils/jsonFile/example.json");
 const url = require("url");
-const { requestsData,validateRequests,parseIt,songHandler,lyricsHandler,handlerQuery ,mainRequest, generateLink} = require("./utils/handler.js");
+
+
+const { requestsData,parseIt,lyricsHandler,mainRequest, generateLink} = require("./utils/handler.js");
 
 const app = express();
-const port = 3000;
+const port = 5000;
+
 
 app.get("/",(req,res)=>{
     res.json(jsonData)
@@ -14,9 +17,10 @@ app.get("/lyrics",(req,res)=>{
     res.json(jsonData.providedRoutes[1])
 })
 app.get("/lyrics/:songLink",async (req,res)=>{
+    const urlNew = url.parse(req.url,true);
     const newTitle = parseIt(req.params["songLink"],"lyrics")
     const data = await requestsData(`https://www.azlyrics.com/lyrics/${newTitle}`);
-    if(data == -1){
+    if(!data){
         res.json({
             "Err" : true,
             "status" : "song's lyrics not found",
@@ -34,11 +38,11 @@ app.get("/search",(req,res)=>{
 app.get("/search/:title",async (req,res)=>{
     const urlNew = url.parse(req.url,true);
     const requestedData = parseIt(req.params["title"],"song")
-    const linkList = generateLink(urlNew.query)
+    const linkList = await generateLink(urlNew.query)
     const data = await mainRequest(linkList,requestedData,`${req.protocol}://${req.get("host")}`);
     res.json(data);
 })
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+app.listen(process.env.PORT || port, () => {
+    console.log(`app running`)
 })

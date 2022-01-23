@@ -13,7 +13,7 @@ const requestsData = async (link) =>{
         const data = await axios({
             "url" : link,
             "method" : "GET",
-            "timeout" : 5000 // you can adjust the amount of this time in ms
+            "timeout" : 5000, // you can adjust the amount of this time in ms
         });
         return await data.data;
     }catch(Err){
@@ -84,7 +84,7 @@ const mainRequest = async (generatedLink,parsedUserInput,host) =>{
             }else{
                 return {
                     "status" : false,
-                    "ErrorLog" : `phrase didn't match on any lyrics`,
+                    "ErrorLog" : `requests didnt match any data`,
                     "name" : item["name"],
                     "willBeProccededData" : [],
                 }
