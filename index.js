@@ -6,7 +6,7 @@ const url = require("url");
 const { requestsData,parseIt,lyricsHandler,mainRequest, generateLink} = require("./utils/handler.js");
 
 const app = express();
-const port = 5000;
+
 app.use(express.json());
 
 app.get("/",(req,res)=>{
@@ -43,6 +43,6 @@ app.get("/search/:title",async (req,res)=>{
     res.json(data);
 })
 
-app.listen(process.env.PORT || port, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log(`app running`)
 })
