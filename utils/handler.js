@@ -14,6 +14,19 @@ const requestsData = async (link) =>{
             "url" : link,
             "method" : "GET",
             "timeout" : 5000, // you can adjust the amount of this time in ms
+            "headers" : {
+                "accept": "*/*",
+                "accept-encoding": "gzip, deflate, br",
+                "accept-language": "en-US,en;q=0.9",
+                "if-modified-since": "Thu, 28 Jan 2021 07:31:51 GMT",
+                "origin": "https://www.azlyrics.com",
+                "referer": "https://www.azlyrics.com/",
+                "sec-fetch-dest": "empty",
+                "sec-fetch-mode": "cors",
+                "sec-fetch-site": "cross-site",
+                "sec-gpc": "1",
+                "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36",
+            }
         });
         return await data.data;
     }catch(Err){
