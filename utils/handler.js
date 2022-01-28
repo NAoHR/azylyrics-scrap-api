@@ -3,12 +3,14 @@ const cheerio = require("cheerio");
 
 // credential
 const parseIt = (data,type) => {
+    // to parse given link fro plain express request
     if(type == "lyrics"){
         return data.split("_").join("/")
     }
     return data.split(" ").join("+")
 }
 const requestsData = async (link) =>{
+    // request data and get the credential html code.
     try{
         const data = await axios({
             "url" : link,
@@ -21,6 +23,7 @@ const requestsData = async (link) =>{
     }
 }
 const validateRequests = (dataRes)=>{
+    // to validate if the request has returned html containing no data
     const $ = cheerio.load(dataRes);
 
     if($("div.alert-warning").text() == ""){
@@ -29,6 +32,8 @@ const validateRequests = (dataRes)=>{
     return false
 }
 const generateLink = (cred) => {
+    // to generate link based on given url query
+    // will be returned data with 'type t' if nothing passed
     const willbeProccededData = [
         {
             "type" : "t",
@@ -56,6 +61,7 @@ const generateLink = (cred) => {
     return [willbeProccededData[0]]
 }
 const mainRequest = async (generatedLink,parsedUserInput,host) =>{
+    // fusion of all request,parse, and validate and error handling if request went error
     const waitAllReq = await Promise.all(generatedLink.map(async (item) => {
         const req = await requestsData(`${item['link']}${parsedUserInput}${item['query']}`);
         if(req == -1){
@@ -95,6 +101,8 @@ const mainRequest = async (generatedLink,parsedUserInput,host) =>{
 }
 
 const songHandler = (data,host,type) =>{
+    // this function is mainly to handle given array data from mainRequest's proccess
+    // this function will parse and search link and title from given html that are parsed on mainRequest
     const $ = cheerio.load(data);
     data = $("table.table-condensed > tbody").children()
     let list = []
@@ -122,6 +130,8 @@ const songHandler = (data,host,type) =>{
 }
 
 const lyricsHandler = (data) => {
+    // function to handle given html after all parsed stuff is done.
+    // this function mainly to get a lyric and other containing credential from a chosen song
     const $ = cheerio.load(data);
     const base = $("div.col-xs-12.col-lg-8.text-center");
     let dataLyrics = base.children("div:not([class])");
