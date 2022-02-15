@@ -54,12 +54,15 @@
    "providedRoutes": [
       {
          "type": "search songs",
-         "route": "/search/song_title",
+         "route": "/search",
          "desc": "search routes to get all credential data on data you've searched on.This will return a list based on the song title",
          "validSongTitle": "only seperated by space ( )",
          "example": {
-            "plain": "/search/what is love",
-            "withQuery": "/search/what is love?q=all"
+            "plain": "/search",
+            "withQuery": "/search?q=all",
+            "exampleBody" : {
+               "songname" : "what is love"
+            }
          },
          "query": {
             "q": {
