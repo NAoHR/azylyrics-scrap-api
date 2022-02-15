@@ -158,8 +158,6 @@ const lyricsHandler = (data) => {
 module.exports = {
     parseIt,
     requestsData,
-    validateRequests,
-    songHandler,
     lyricsHandler,
     mainRequest,
     generateLink
