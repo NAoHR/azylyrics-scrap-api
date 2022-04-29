@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.get("/", lyricsController.index)
-app.get("/lyrics",lyricsController.lyrics);
+app.get("/lyrics-guide",lyricsController.lyrics);
 app.get("/lyrics/:songLink", lyricsController.songsLyrics)
 
 app.get("/search-guide",lyricsController.searchGuide);

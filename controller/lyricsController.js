@@ -33,7 +33,7 @@ exports.songsLyrics = async (req,res) => {
 }
 
 
-exports.searchGuide = () => {
+exports.searchGuide = (req,res) => {
     return res.json(jsonData.providedRoutes[0])
 }
 

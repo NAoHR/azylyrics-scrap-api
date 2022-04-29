@@ -6,6 +6,7 @@
         {
             "type" : "search songs",
             "route" : "/search/song_title",
+            "method" : "post",
             "desc" : "search routes to get all credential data on data you've searched on.This will return a list based on the song title",
             "validSongTitle" : "only seperated by space ( )",
             "example" : {
@@ -23,9 +24,22 @@
         {
             "type" : "get lyrics",
             "route" : "/lyrics/artist_song.html",
+            "method" : "get",
             "desc" : "after you get all the credential data of the song youve searched,use this route to get its lyrics",
             "validSongTitle" : "/artist/songTitle.html",
             "example" : "/search/twice_whatislove.html"
+        },
+        {
+            "type" : "lyrics manual",
+            "route" : "/lyrics-guide",
+            "method" : "get",
+            "desc" : "help you to use /lyrics-guide route"
+        },
+        {
+            "type" : "lyrics manual",
+            "route" : "/search-guide",
+            "method" : "get",
+            "desc" : "help you to use search-guide route"
         }
     ]
 }
